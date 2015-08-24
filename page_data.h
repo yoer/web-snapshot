@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "wkconst.h"
+
 namespace page_snap
 {
 	class page_default_data{
@@ -16,13 +18,8 @@ namespace page_snap
 	{
 	public:
 		page_data();
+
 	public:
-		int width() const;
-		void width(int val);
-
-		int height() const;
-		void height(int val);
-
 		const std::string& url() const;
 		void url(std::string val);
 
@@ -32,11 +29,34 @@ namespace page_snap
 		const std::string& save_path() const;
 		void save_path(std::string val);
 
+		const std::string& img_fmt() const;
+		void img_fmt(const std::string& val);
+
+		wk_params to_wk_image_params() const;
+		wk_params to_wk_pdf_params() const;
+
 	private:
-		int m_width;
-		int m_height;
 		std::string m_url;
+		std::string m_img_fmt;
 		std::string m_save_name;
 		std::string m_save_path;
+	};
+
+	class page_result{
+	public:
+		bool state() const;
+		void state(bool val);
+		std::string error() const;
+		void error(std::string val);
+		std::string result() const;
+		void result(std::string val);
+		int http_error_code() const { return m_http_error_code; }
+		void http_error_code(int val) { m_http_error_code = val; }
+		
+	private: 
+		bool m_state;
+		int m_http_error_code;
+		std::string m_error;
+		std::string m_result;
 	};
 }

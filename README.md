@@ -6,5 +6,11 @@ convert web page to image
 		page_snap::page_default_data default_data;
 		default_data.save_path(".");
 		
-		page_snap::page().url("http://www.baidu.com").save_image("baidu.png");
-		page_snap::page().url("http://www.baidu.com").save_pdf("baidu.pdf");
+		page_snap::page()
+			.url("http://www.baidu.com")
+			.img_fmt("jpeg")
+			.save_image("baidu.jpg");
+			
+		page_snap::page()
+			.url("http://www.baidu.com")
+			.save_pdf("baidu.pdf");
