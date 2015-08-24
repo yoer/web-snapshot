@@ -49,7 +49,7 @@ page_snap::pdf& page_snap::pdf::init_wk(const page_snap::wk_params& data)
 	});
 
 	m_global_setting = wkhtmltopdf_create_global_settings();
-	auto glb_keys = object_setting_key();
+	auto glb_keys = global_setting_key();
 	std::for_each(glb_keys.begin(), glb_keys.end(), [&](const std::string& key){
 		auto iter = params.find(key);
 		if (params.end() == iter){
