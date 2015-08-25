@@ -1,21 +1,24 @@
-#include "image.h"
+#include "image_x.h"
 
 #include <algorithm>
 
 #include "page_data.h"
 
-page_snap::image::image()
+page_snap::image_x::image_x()
+:m_converter(nullptr)
 {
 	wkhtmltoimage_init(false);
 }
 
-page_snap::image::~image()
+page_snap::image_x::~image_x()
 {
-	wkhtmltoimage_destroy_converter(m_converter);
+	if (nullptr!=m_converter){
+		wkhtmltoimage_destroy_converter(m_converter);
+	}
 	wkhtmltoimage_deinit();
 }
 
-page_snap::image& page_snap::image::init_wk(const page_snap::wk_params& params)
+page_snap::image_x& page_snap::image_x::init_wk(const page_snap::wk_params& params)
 {
 	m_global_setting = wkhtmltoimage_create_global_settings();
 
@@ -27,11 +30,10 @@ page_snap::image& page_snap::image::init_wk(const page_snap::wk_params& params)
 	return *this;
 }
 
-page_snap::page_result page_snap::image::save()
+page_snap::page_result page_snap::image_x::save()
 {
 	page_snap::page_result rs;
-	if (!wkhtmltoimage_convert(m_converter))
-	{
+	if (!wkhtmltoimage_convert(m_converter)){
 		rs.state(false);
 		rs.error("Convertion failed");
 	}
@@ -41,31 +43,31 @@ page_snap::page_result page_snap::image::save()
 	return rs;
 }
 
-page_snap::image& page_snap::image::set_warning_callback(wkhtmltoimage_str_callback cb)
+page_snap::image_x& page_snap::image_x::set_warning_callback(wkhtmltoimage_str_callback cb)
 {
 	wkhtmltoimage_set_warning_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::image& page_snap::image::set_error_callback(wkhtmltoimage_str_callback cb)
+page_snap::image_x& page_snap::image_x::set_error_callback(wkhtmltoimage_str_callback cb)
 {
 	wkhtmltoimage_set_error_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::image& page_snap::image::set_phase_changed_callback(wkhtmltoimage_void_callback cb)
+page_snap::image_x& page_snap::image_x::set_phase_changed_callback(wkhtmltoimage_void_callback cb)
 {
 	wkhtmltoimage_set_phase_changed_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::image& page_snap::image::set_progress_changed_callback(wkhtmltoimage_int_callback cb)
+page_snap::image_x& page_snap::image_x::set_progress_changed_callback(wkhtmltoimage_int_callback cb)
 {
 	wkhtmltoimage_set_progress_changed_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::image& page_snap::image::set_finished_callback(wkhtmltoimage_int_callback cb)
+page_snap::image_x& page_snap::image_x::set_finished_callback(wkhtmltoimage_int_callback cb)
 {
 	wkhtmltoimage_set_finished_callback(m_converter, cb);
 	return *this;

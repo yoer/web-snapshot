@@ -7,22 +7,22 @@
 
 namespace page_snap
 {
-	class pdf
+	class pdf_x
 	{
 	public:
-		pdf();;
-		virtual ~pdf();
+		pdf_x();;
+		virtual ~pdf_x();
 
 	public:
-		pdf& init_wk(const page_snap::wk_params& data);
+		pdf_x& init_wk(const page_snap::wk_params& data);
 		page_result save();
 
 	public:
-		pdf& set_warning_callback(wkhtmltopdf_str_callback cb);
-		pdf& set_error_callback(wkhtmltopdf_str_callback cb);
-		pdf& set_phase_changed_callback(wkhtmltopdf_void_callback cb);
-		pdf& set_progress_changed_callback(wkhtmltopdf_int_callback cb);
-		pdf& set_finished_callback(wkhtmltopdf_int_callback cb);
+		pdf_x& set_warning_callback(wkhtmltopdf_str_callback cb);
+		pdf_x& set_error_callback(wkhtmltopdf_str_callback cb);
+		pdf_x& set_phase_changed_callback(wkhtmltopdf_void_callback cb);
+		pdf_x& set_progress_changed_callback(wkhtmltopdf_int_callback cb);
+		pdf_x& set_finished_callback(wkhtmltopdf_int_callback cb);
 
 
 	private:

@@ -1,4 +1,4 @@
-#include "pdf.h"
+#include "pdf_x.h"
 
 #include <map>
 #include <algorithm>
@@ -6,18 +6,21 @@
 #include "page_data.h"
 
 
-page_snap::pdf::pdf()
+page_snap::pdf_x::pdf_x()
+:m_converter(nullptr)
 {
 	wkhtmltopdf_init(false);
 }
 
-page_snap::pdf::~pdf()
+page_snap::pdf_x::~pdf_x()
 {
-	wkhtmltopdf_destroy_converter(m_converter);
+	if (nullptr != m_converter){
+		wkhtmltopdf_destroy_converter(m_converter);
+	}
 	wkhtmltopdf_deinit();
 }
 
-page_snap::page_result page_snap::pdf::save()
+page_snap::page_result page_snap::pdf_x::save()
 {
 	page_snap::page_result rs;
 	if (!wkhtmltopdf_convert(m_converter))
@@ -31,7 +34,7 @@ page_snap::page_result page_snap::pdf::save()
 	return rs;
 }
 
-page_snap::pdf& page_snap::pdf::init_wk(const page_snap::wk_params& data)
+page_snap::pdf_x& page_snap::pdf_x::init_wk(const page_snap::wk_params& data)
 {
 	std::map<std::string, std::string> params;
 	std::for_each(data.begin(), data.end(), [&](const page_snap::wk_param& param){
@@ -64,7 +67,7 @@ page_snap::pdf& page_snap::pdf::init_wk(const page_snap::wk_params& data)
 	return *this;
 }
 
-std::vector<std::string> page_snap::pdf::object_setting_key() const
+std::vector<std::string> page_snap::pdf_x::object_setting_key() const
 {
 	static std::vector<std::string> keys;
 	keys.push_back(page_snap::wk_setting_name::pdf_in);
@@ -72,7 +75,7 @@ std::vector<std::string> page_snap::pdf::object_setting_key() const
 	return keys;
 }
 
-std::vector<std::string> page_snap::pdf::global_setting_key() const
+std::vector<std::string> page_snap::pdf_x::global_setting_key() const
 {
 	static std::vector<std::string> keys;
 	keys.push_back(page_snap::wk_setting_name::pdf_out);
@@ -80,31 +83,31 @@ std::vector<std::string> page_snap::pdf::global_setting_key() const
 	return keys;
 }
 
-page_snap::pdf& page_snap::pdf::set_warning_callback(wkhtmltopdf_str_callback cb)
+page_snap::pdf_x& page_snap::pdf_x::set_warning_callback(wkhtmltopdf_str_callback cb)
 {
 	wkhtmltopdf_set_warning_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::pdf& page_snap::pdf::set_error_callback(wkhtmltopdf_str_callback cb)
+page_snap::pdf_x& page_snap::pdf_x::set_error_callback(wkhtmltopdf_str_callback cb)
 {
 	wkhtmltopdf_set_error_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::pdf& page_snap::pdf::set_phase_changed_callback(wkhtmltopdf_void_callback cb)
+page_snap::pdf_x& page_snap::pdf_x::set_phase_changed_callback(wkhtmltopdf_void_callback cb)
 {
 	wkhtmltopdf_set_phase_changed_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::pdf& page_snap::pdf::set_progress_changed_callback(wkhtmltopdf_int_callback cb)
+page_snap::pdf_x& page_snap::pdf_x::set_progress_changed_callback(wkhtmltopdf_int_callback cb)
 {
 	wkhtmltopdf_set_progress_changed_callback(m_converter, cb);
 	return *this;
 }
 
-page_snap::pdf& page_snap::pdf::set_finished_callback(wkhtmltopdf_int_callback cb)
+page_snap::pdf_x& page_snap::pdf_x::set_finished_callback(wkhtmltopdf_int_callback cb)
 {
 	wkhtmltopdf_set_finished_callback(m_converter, cb);
 	return *this;
