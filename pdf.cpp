@@ -59,6 +59,8 @@ page_snap::pdf& page_snap::pdf::init_wk(const page_snap::wk_params& data)
 	});
 
 	m_converter = wkhtmltopdf_create_converter(m_global_setting);
+	wkhtmltopdf_add_object(m_converter, m_object_setting, NULL);
+
 	return *this;
 }
 
