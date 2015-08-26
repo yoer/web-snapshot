@@ -1,9 +1,17 @@
-# wimage
-convert web page to image
+
+# Page-snap
+* convert web page to image/pdf, warp with c++ for [wkhtmltox](http://wkhtmltopdf.org/libwkhtmltox/index.html)
+
+* about more parameters and settings, please see [settings](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html)
 
 
-###Sample
+##Pre-requisites:
+* you need `libwkhtmltox.lib`, and need directory in your lib path
+* you need header files in `include/wkhtmltox` folder from wkhtmltopdf, and need directory in your include path
+		
+##Sample
 
+```cpp
 		void image_progress_changed(wkhtmltoimage_converter * c, int p) {
 			printf("%3d%%\r", p);
 			fflush(stdout);
@@ -29,3 +37,4 @@ convert web page to image
 			.to_pdf("baidu.pdf")
 			.set_progress_changed_callback(pdf_progress_changed)
 			.save();
+```
