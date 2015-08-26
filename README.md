@@ -4,8 +4,13 @@ convert web page to image
 
 ###Sample
 
-		void progress_changed(wkhtmltoimage_converter * c, int p) {
+		void image_progress_changed(wkhtmltoimage_converter * c, int p) {
 			printf("%3d%%\r", p);
+			fflush(stdout);
+		}
+		
+		void pdf_progress_changed(wkhtmltopdf_converter * c, int p) {
+			printf("%3d%%\r",p);
 			fflush(stdout);
 		}
 
@@ -15,12 +20,12 @@ convert web page to image
 		page_snap::page()
 			.url("http://www.baidu.com")
 			.img_fmt("jpeg")
-			.set_progress_changed_callback(progress_changed)
 			.to_image("baidu.jpg")
+			.set_progress_changed_callback(image_progress_changed)
 			.save();
 			
 		page_snap::page()
 			.url("http://www.baidu.com")
-			.set_progress_changed_callback(progress_changed)
 			.to_pdf("baidu.pdf")
+			.set_progress_changed_callback(pdf_progress_changed)
 			.save();
