@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "page_data.h"
+#include "wk_setting.h"
 
 
 page_snap::pdf_x::pdf_x()
@@ -70,7 +71,7 @@ page_snap::pdf_x& page_snap::pdf_x::init_wk(const page_snap::wk_params& data)
 std::vector<std::string> page_snap::pdf_x::object_setting_key() const
 {
 	static std::vector<std::string> keys;
-	keys.push_back(page_snap::wk_setting_name::pdf_in);
+	keys.push_back(page_snap::setting_pdf_object_in);
 
 	return keys;
 }
@@ -78,7 +79,7 @@ std::vector<std::string> page_snap::pdf_x::object_setting_key() const
 std::vector<std::string> page_snap::pdf_x::global_setting_key() const
 {
 	static std::vector<std::string> keys;
-	keys.push_back(page_snap::wk_setting_name::pdf_out);
+	keys.push_back(page_snap::setting_pdf_global_out);
 
 	return keys;
 }

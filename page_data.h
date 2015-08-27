@@ -21,13 +21,13 @@ namespace page_snap
 
 	public:
 		const std::string& url() const;
-		void url(std::string val);
+		void url(const std::string& val);
 
 		const std::string& save_name() const;
-		void save_name(std::string val);
+		void save_name(const std::string& val);
 
 		const std::string& save_path() const;
-		void save_path(std::string val);
+		void save_path(const std::string& val);
 
 		const std::string& img_fmt() const;
 		void img_fmt(const std::string& val);
